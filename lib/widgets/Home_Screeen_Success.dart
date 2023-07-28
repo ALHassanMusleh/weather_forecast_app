@@ -138,8 +138,8 @@ class HomeScreenSuccess extends StatelessWidget {
 //     'assets/images/sunny.png',
 // 'assets/images/rain_2.png',
 // 'assets/images/thunder.png',
-                weatherData![0]!.getImage(
-                    weatherStateName: weatherData![0]!.weatherStateName,i: 0),
+                weatherData![0]!.getImage_Icon(
+                    weatherStateName: weatherData![0]!.weatherStateName)[0],
               ),
             ),
             const SizedBox(
@@ -168,9 +168,9 @@ class HomeScreenSuccess extends StatelessWidget {
                       },
                       child: ListTile(
                         leading: Image.asset(
-                            weatherData![i]!.getIcon(
+                            weatherData![i]!.getImage_Icon(
                                 weatherStateName:
-                                    weatherData![i]!.weatherStateName),
+                                    weatherData![i]!.weatherStateName)[1],
                             color: Colors.white),
                         title: Text(
                           '${DateFormat.EEEE().format(weatherData![i]!.date).toString()}',

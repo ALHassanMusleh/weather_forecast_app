@@ -8,6 +8,7 @@ class WeatherModel {
   double maxTemp;
   double minTemp;
   String weatherStateName;
+  String weatherIcon;
   List<WeatherHoursModel> weatherHours;
 
   WeatherModel({
@@ -19,6 +20,7 @@ class WeatherModel {
     required this.minTemp,
     required this.weatherStateName,
     required this.weatherHours,
+    required this.weatherIcon,
   });
 
   factory WeatherModel.fromJson(dynamic data, i) {
@@ -31,6 +33,7 @@ class WeatherModel {
       maxTemp: jsonData['day']['maxtemp_c'],
       minTemp: jsonData['day']['mintemp_c'],
       weatherStateName: jsonData['day']['condition']['text'],
+      weatherIcon: jsonData['day']['condition']['icon'],
       weatherHours: List<WeatherHoursModel>.from(
           jsonData["hour"].map((x) => WeatherHoursModel.fromJson(x))),
     );
@@ -47,18 +50,16 @@ class WeatherModel {
   //   );
   // }
 
-  String getImage({required String weatherStateName,i }) {
+  String getHourImage({required String weatherStateName, i}) {
     if (weatherStateName == 'Sunny' ||
         weatherStateName == 'Clear' ||
         weatherStateName == 'partly cloudy' ||
-        weatherStateName.contains('sunny') ||
+        weatherStateName.contains('Sunny') ||
         weatherStateName.contains('Clear')) {
       if (weatherHours[i].weatherIcon.contains('day')) {
         return 'assets/images/bg_state/day/clear_day.png';
       } else {
         return 'assets/images/bg_state/nigth/clear_nigth.png';
-
-
       }
     } else if (weatherStateName == 'Blizzard' ||
         weatherStateName == 'Patchy snow possible' ||
@@ -117,7 +118,8 @@ class WeatherModel {
     if (weatherStateName == 'Sunny' ||
         weatherStateName == 'Clear' ||
         weatherStateName == 'partly cloudy' ||
-        weatherStateName.contains('sunny')) {
+        weatherStateName.contains('sunny') ||
+        weatherStateName.contains('Clear')) {
       color = [Color(0xff47c8ff), Color(0xff46b0fe)];
       return color;
     } else if (weatherStateName == 'Blizzard' ||
@@ -158,41 +160,56 @@ class WeatherModel {
     }
   }
 
-  String getIcon({required String weatherStateName}) {
+  List<String> getImage_Icon({required String weatherStateName}) {
+    List<String> image_icon = [];
+    String image = '';
+    String icon = '';
     if (weatherStateName == 'Sunny' ||
         weatherStateName == 'Clear' ||
         weatherStateName == 'partly cloudy' ||
-        weatherStateName.contains('sunny')) {
-      return 'assets/images/icon_state/sun.png';
+        weatherStateName.contains('sunny') ||
+        weatherStateName.contains('Clear')) {
+      icon = 'assets/images/icon_state/sun.png';
+      image = 'assets/images/bg_state/sunny.png';
+      return image_icon = [image, icon];
     } else if (weatherStateName == 'Blizzard' ||
         weatherStateName == 'Patchy snow possible' ||
         weatherStateName == 'Patchy sleet possible' ||
         weatherStateName == 'Patchy freezing drizzle possible' ||
         weatherStateName == 'Blowing snow' ||
         weatherStateName.contains('snow')) {
-      return 'assets/images/icon_state/snow.png';
+      icon = 'assets/images/icon_state/snow.png';
+      image = 'assets/images/bg_state/snow.png';
+      return image_icon = [image, icon];
     } else if (weatherStateName == 'Freezing fog' ||
         weatherStateName == 'Fog' ||
         weatherStateName == 'Heavy Cloud' ||
         weatherStateName == 'Mist' ||
         weatherStateName == 'Fog' ||
-        weatherStateName.contains('cloudy') ||
         weatherStateName.contains('cloudy')) {
-      return 'assets/images/icon_state/cloudy.png';
+      icon = 'assets/images/icon_state/cloudy.png';
+      image = 'assets/images/bg_state/cloudy.png';
+      return image_icon = [image, icon];
     } else if (weatherStateName == 'Patchy rain possible' ||
         weatherStateName == 'Heavy Rain' ||
         weatherStateName == 'Showers	' ||
         weatherStateName.contains('rain')) {
-      return 'assets/images/icon_state/rainy.png';
+      icon = 'assets/images/icon_state/rainy.png';
+      image = 'assets/images/bg_state/rain.png';
+      return image_icon = [image, icon];
     } else if (weatherStateName == 'Thundery outbreaks possible' ||
         weatherStateName == 'Moderate or heavy snow with thunder' ||
         weatherStateName == 'Patchy light snow with thunder' ||
         weatherStateName == 'Moderate or heavy rain with thunder' ||
         weatherStateName == 'Patchy light rain with thunder' ||
         weatherStateName.contains('thunder')) {
-      return 'assets/images/icon_state/lightning.png';
+      icon = 'assets/images/icon_state/lightning.png';
+      image = 'assets/images/bg_state/thunder.png';
+      return image_icon = [image, icon];
     } else {
-      return 'assets/images/icon_state/sun.png';
+      icon = 'assets/images/icon_state/sun.png';
+      image = 'assets/images/bg_state/sunny.png';
+      return image_icon = [image, icon];
     }
   }
 }

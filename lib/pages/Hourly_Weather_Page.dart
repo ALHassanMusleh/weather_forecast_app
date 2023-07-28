@@ -5,7 +5,7 @@ import 'package:weather_complete_app/model/Weather_model.dart';
 import 'package:weather_complete_app/pages/Search_Page.dart';
 
 class HourlyWeatherPage extends StatelessWidget {
-  HourlyWeatherPage({required this.weatherData,required this.i});
+  HourlyWeatherPage({required this.weatherData, required this.i});
   static String id = 'ForcastPage';
 
   WeatherModel? weatherData;
@@ -117,8 +117,10 @@ class HourlyWeatherPage extends StatelessWidget {
                           //     'assets/images/sunny.png',
                           // 'assets/images/rain_2.png',
                           // 'assets/images/thunder.png',
-                          weatherData!.getImage(
-                              weatherStateName: weatherData!.weatherStateName,i: i),
+
+                          weatherData!.getImage_Icon(
+                              weatherStateName:
+                                  weatherData!.weatherStateName)[0],
                           width: 100,
                         ),
                       ),
@@ -229,9 +231,10 @@ class HourlyWeatherPage extends StatelessWidget {
                       title: Row(
                         children: [
                           Image.asset(
-                            weatherData!.getImage(
+                            weatherData!.getHourImage(
                                 weatherStateName:
-                                    weatherData!.weatherHours[i].weatherState,i: i),
+                                    weatherData!.weatherHours[i].weatherState,
+                                i: i),
                             width: 40,
                             height: 40,
                             // weatherData!.getIcon(
